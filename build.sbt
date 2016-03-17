@@ -64,9 +64,10 @@ def mimaSettings(module: String): Seq[Setting[_]] = mimaDefaultSettings ++ Seq(
 
 lazy val monocleSettings = buildSettings ++ publishSettings
 
-lazy val jsProjects = Seq[ProjectReference](
+lazy val jsProjects = Seq(
   monocleJS, coreJS, genericJS, lawJS, macrosJS, stateJS, refinedJS, testJS, exampleJS
 )
+lazy val jsProjectReferences = jsProjects.map(p => p: ProjectReference)
 lazy val jvmProjects = Seq[ProjectReference](
   monocleJVM, coreJVM, genericJVM, lawJVM, macrosJVM, stateJVM, refinedJVM, testJVM, exampleJVM, docs, bench
 )
@@ -74,7 +75,7 @@ lazy val jvmProjects = Seq[ProjectReference](
 lazy val root = project.in(file("."))
   .settings(monocleSettings: _*)
   .settings(noPublishSettings: _*)
-  .aggregate(jsProjects ++ jvmProjects : _*)
+  .aggregate(jsProjectReferences ++ jvmProjects : _*)
 
 lazy val rootJVM = project
   .settings(monocleSettings: _*)
@@ -84,7 +85,12 @@ lazy val rootJVM = project
 lazy val rootJS = project
   .settings(monocleSettings: _*)
   .settings(noPublishSettings: _*)
-  .aggregate(jsProjects: _*)
+  .settings(
+    commands += Command.command("testSequential"){
+      jsProjects.map(_.id).map(_ + "/test").sorted ::: _
+    }
+  )
+  .aggregate(jsProjectReferences: _*)
 
 
 lazy val monocle = crossProject.crossType(CrossTypeMixed)
