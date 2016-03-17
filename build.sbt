@@ -169,8 +169,8 @@ lazy val test = crossProject.crossType(CrossTypeMixed).dependsOn(core, generic, 
     libraryDependencies ++= Seq(scalaz.value, shapeless.value, scalatest.value, discpline.value, compilerPlugin(paradisePlugin))
   )
   .jsSettings(
-//    jsEnv := NodeJSEnv().value,
-//    scalaJSUseRhino in Global := false
+    jsEnv := NodeJSEnv().value,
+    scalaJSUseRhino in Global := false
   )
 
 lazy val testJVM = test.jvm
