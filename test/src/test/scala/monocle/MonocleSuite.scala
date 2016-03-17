@@ -22,6 +22,6 @@ trait MonocleSuite extends FunSuite
                       with StateLensSyntax {
   implicit override val generatorDrivenConfig: PropertyCheckConfiguration =
     PropertyCheckConfiguration(
-      minSuccessful = if (Platform.isJvm) PosInt(100) else PosInt(10),
-      sizeRange = if (Platform.isJvm) PosInt(100) else PosInt(10))
+      minSuccessful = if (Platform.isJvm) PosInt(100) else PosInt(5),
+      sizeRange = if (Platform.isJvm) PosInt(100) else PosInt(3))
 }
