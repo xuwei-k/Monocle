@@ -15,6 +15,7 @@ lazy val CrossTypeMixed = new CrossType {
 }
 
 lazy val buildSettings = Seq(
+  parallelExecution in Test := false,
   organization       := "com.github.julien-truffaut",
   scalaVersion       := "2.11.8",
   crossScalaVersions := Seq("2.10.6", "2.11.8"),
