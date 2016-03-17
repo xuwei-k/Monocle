@@ -1,1 +1,1 @@
--Xmx3G
+-Xmx4G -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:ReservedCodeCacheSize=1G -XX:+TieredCompilation -Xss6m
