@@ -65,11 +65,11 @@ def mimaSettings(module: String): Seq[Setting[_]] = mimaDefaultSettings ++ Seq(
 lazy val monocleSettings = buildSettings ++ publishSettings
 
 lazy val jsProjects = Seq(
-  monocleJS, coreJS, genericJS, lawJS, macrosJS, stateJS, refinedJS, testJS, exampleJS
+  monocleJS, coreJS, genericJS, lawJS, macrosJS, stateJS, refinedJS, testJS, exampleJS, scalapropsJS
 )
 lazy val jsProjectReferences = jsProjects.map(p => p: ProjectReference)
 lazy val jvmProjects = Seq[ProjectReference](
-  monocleJVM, coreJVM, genericJVM, lawJVM, macrosJVM, stateJVM, refinedJVM, testJVM, exampleJVM, docs, bench
+  monocleJVM, coreJVM, genericJVM, lawJVM, macrosJVM, stateJVM, refinedJVM, testJVM, exampleJVM, docs, bench, scalapropsJVM
 )
 
 lazy val root = project.in(file("."))
@@ -137,6 +137,17 @@ lazy val law = crossProject.crossType(CrossTypeMixed).dependsOn(core)
 
 lazy val lawJVM = law.jvm
 lazy val lawJS = law.js
+
+lazy val scalaprops = crossProject.crossType(CrossTypeMixed).dependsOn(core)
+  .settings(moduleName := "monocle-scalaprops")
+  .settings(monocleSettings: _*)
+  .settings(scalapropsCoreSettings: _*)
+  .settings(libraryDependencies ++= Seq(
+    "com.github.scalaprops" %%% "scalaprops" % "0.3.0"
+  ))
+
+lazy val scalapropsJVM = scalaprops.jvm
+lazy val scalapropsJS = scalaprops.js
 
 lazy val macros = crossProject.crossType(CrossTypeMixed).dependsOn(core)
   .in(file("macro"))
