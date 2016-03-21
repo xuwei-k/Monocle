@@ -32,6 +32,14 @@ object MonocleLaw {
   val `iso modify id = id` = law0(iso, "modify id = id")
   val `iso modifyF Id = Id` = law0(iso, "modifyF Id = Id")
 
+  val optional = law("optional")
+  val `optional set what you get` = law0(optional, "set what you get")
+  val `optional get what you set` = law0(optional, "get what you set")
+  val `optional set idempotent` = law0(optional, "set idempotent")
+  val `optional modify id = id` = law0(optional, "modify id = id")
+  val `optional modifyF Id = Id` = law0(optional, "modifyF Id = Id")
+  val `optional modifyOption` = law0(optional, "modifyOption")
+
 
   val values: List[MonocleLaw] = set.toList
 
