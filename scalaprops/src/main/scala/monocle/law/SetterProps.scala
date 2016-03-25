@@ -5,7 +5,7 @@ import scalaz.Equal
 import scalaprops._
 import scalaprops.Property.forAll
 
-object SetterTests {
+object SetterProps {
 
   def laws[S: Gen : Equal, A: Gen : Equal](setter: Setter[S, A]): Properties[MonocleLaw] = {
     val laws: SetterLaws[S, A] = new SetterLaws(setter)
