@@ -47,9 +47,16 @@ object MonocleLaw {
   val prism = law("prism")
   val `partial round trip one way` = law0(prism, "partial round trip one way")
   val `round trip other way` = law0(prism, "round trip other way")
-  val `modify id = id` = law0(prism, "modify id = id")
-  val `modifyF Id = Id` = law0(prism, "modifyF Id = Id")
+  val `prism modify id = id` = law0(prism, "modify id = id")
+  val `prism modifyF Id = Id` = law0(prism, "modifyF Id = Id")
   val modifyOption = law0(prism, "modifyOption")
+
+  val traversal = law("traversal")
+  val `get what you set` = law0(traversal, "get what you set")
+  val `set idempotent` = law0(traversal, "set idempotent")
+  val `traversal modify id = id` = law0(traversal, "modify id = id")
+  val `traversal modifyF Id = Id` = law0(traversal, "modifyF Id = Id")
+  val headOption = law0(traversal, "headOption")
 
   val values: List[MonocleLaw] = set.toList
 

@@ -13,8 +13,8 @@ object PrismProps {
     Properties.properties(MonocleLaw.prism)(
       MonocleLaw.`partial round trip one way` -> forAll( (s: S) => laws.partialRoundTripOneWay(s)),
       MonocleLaw.`round trip other way` -> forAll( (a: A) => laws.roundTripOtherWay(a)),
-      MonocleLaw.`modify id = id` -> forAll( (s: S) => laws.modifyIdentity(s)),
-      MonocleLaw.`modifyF Id = Id` -> forAll( (s: S) => laws.modifyFId(s)),
+      MonocleLaw.`prism modify id = id` -> forAll( (s: S) => laws.modifyIdentity(s)),
+      MonocleLaw.`prism modifyF Id = Id` -> forAll( (s: S) => laws.modifyFId(s)),
       MonocleLaw.modifyOption -> forAll( (s: S) => laws.modifyOptionIdentity(s))
     )
   }
