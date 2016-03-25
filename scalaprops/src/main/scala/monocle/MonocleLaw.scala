@@ -44,6 +44,13 @@ object MonocleLaw {
   val `setter set idempotent` = law0(setter, "set idempotent")
   val `setter modify id = id` = law0(setter, "modify id = id")
 
+  val prism = law("prism")
+  val `partial round trip one way` = law0(prism, "partial round trip one way")
+  val `round trip other way` = law0(prism, "round trip other way")
+  val `modify id = id` = law0(prism, "modify id = id")
+  val `modifyF Id = Id` = law0(prism, "modifyF Id = Id")
+  val modifyOption = law0(prism, "modifyOption")
+
   val values: List[MonocleLaw] = set.toList
 
   implicit val monocleLawGen: Gen[MonocleLaw] = {
