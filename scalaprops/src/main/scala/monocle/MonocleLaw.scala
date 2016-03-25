@@ -52,11 +52,18 @@ object MonocleLaw {
   val modifyOption = law0(prism, "modifyOption")
 
   val traversal = law("traversal")
-  val `get what you set` = law0(traversal, "get what you set")
-  val `set idempotent` = law0(traversal, "set idempotent")
+  val `traversal get what you set` = law0(traversal, "get what you set")
+  val `traversal set idempotent` = law0(traversal, "set idempotent")
   val `traversal modify id = id` = law0(traversal, "modify id = id")
   val `traversal modifyF Id = Id` = law0(traversal, "modifyF Id = Id")
   val headOption = law0(traversal, "headOption")
+
+  val lens = law("lens")
+  val `lens set what you get` = law0(lens, "set what you get")
+  val `lens get what you set` = law0(lens, "lens get what you set")
+  val `lens set idempotent` = law0(lens, "lens set idempotent")
+  val `lens modify id = id` = law0(lens, "modify id = id")
+  val `lens modifyF Id = Id` = law0(lens, "modifyF Id = Id")
 
   val values: List[MonocleLaw] = set.toList
 
