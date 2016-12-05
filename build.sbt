@@ -8,10 +8,19 @@ import sbt.Keys._
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 import sbtunidoc.Plugin.UnidocKeys._
 
+val unusedWarnings = (
+  "-Ywarn-unused" ::
+  "-Ywarn-unused-import" ::
+  Nil
+)
+
 lazy val buildSettings = Seq(
   organization       := "com.github.julien-truffaut",
   scalaVersion       := "2.12.0",
   crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.0"),
+  scalacOptions ++= PartialFunction.condOpt(CrossVersion.partialVersion(scalaVersion.value)){
+    case Some((2, v)) if v >= 11 => unusedWarnings
+  }.toList.flatten,
   scalacOptions     ++= Seq(
     "-deprecation",
     "-encoding", "UTF-8",
@@ -40,6 +49,8 @@ lazy val buildSettings = Seq(
     Resolver.sonatypeRepo("snapshots")
   ),
   scmInfo := Some(ScmInfo(url("https://github.com/julien-truffaut/Monocle"), "scm:git:git@github.com:julien-truffaut/Monocle.git"))
+) ++ Seq(Compile, Test).flatMap(c =>
+  scalacOptions in (c, console) --= unusedWarnings
 )
 
 lazy val scalaz     = Def.setting("org.scalaz"      %%% "scalaz-core" % "7.2.7")
@@ -213,7 +224,7 @@ lazy val docs = project.dependsOn(coreJVM, unsafeJVM, macrosJVM, example)
   .settings(unidocSettings)
   .settings(ghpages.settings)
   .settings(docSettings)
-  .settings(tutScalacOptions ~= (_.filterNot(Set("-Ywarn-unused-import", "-Ywarn-dead-code"))))
+  .settings(tutScalacOptions --= (unusedWarnings ++ Seq("-Ywarn-dead-code")))
   .settings(
     libraryDependencies ++= Seq(scalaz.value, shapeless.value, compilerPlugin(paradisePlugin))
   )
