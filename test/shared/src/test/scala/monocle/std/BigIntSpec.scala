@@ -2,7 +2,6 @@ package monocle.std
 
 import monocle.MonocleSuite
 import monocle.law.discipline.PrismTests
-import monocle.law.discipline.function.IndexTests
 
 class BigIntSpec extends MonocleSuite {
   checkAll("BigInt to Long"    , PrismTests(bigIntToLong))
