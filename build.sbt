@@ -9,7 +9,7 @@ import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 import sbtunidoc.Plugin.UnidocKeys._
 
 val unusedWarnings = (
-  "-Ywarn-unused" ::
+//  "-Ywarn-unused" ::
   "-Ywarn-unused-import" ::
   Nil
 )
