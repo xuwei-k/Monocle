@@ -70,4 +70,5 @@ matrix:
     - make testinstall prefix=/usr
     - popd
     script:
-    - sbt ++$TRAVIS_SCALA_VERSION testNative/run
+    - sbt ++$TRAVIS_SCALA_VERSION testNative/nativeLink
+    - ./testNative/target/scala-2.11/monocle-test-native-out
