@@ -62,7 +62,6 @@ lazy val buildSettings = Seq(
     "-feature",
     "-language:implicitConversions", "-language:higherKinds", "-language:postfixOps",
     "-unchecked",
-    "-Xfatal-warnings",
     "-deprecation",
     "-Ywarn-dead-code",
     "-Ywarn-value-discard",
@@ -311,7 +310,6 @@ lazy val docSettings = Seq(
   fork in tut := true,
   fork in (ScalaUnidoc, unidoc) := true,
   scalacOptions in (ScalaUnidoc, unidoc) ++= Seq(
-    "-Xfatal-warnings",
     "-doc-source-url", scmInfo.value.get.browseUrl + "/tree/master€{FILE_PATH}.scala",
     "-sourcepath", baseDirectory.in(LocalRootProject).value.getAbsolutePath,
     "-diagrams"
