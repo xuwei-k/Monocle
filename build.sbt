@@ -108,7 +108,7 @@ lazy val scalajsSettings = Seq(
 )
 
 lazy val monocleSettings    = buildSettings
-lazy val monocleJvmSettings = monocleSettings
+lazy val monocleJvmSettings = monocleSettings ++ Seq(skip in publish := true)
 lazy val monocleJsSettings  = monocleSettings ++ scalajsSettings
 
 lazy val monocle = project.in(file("."))
